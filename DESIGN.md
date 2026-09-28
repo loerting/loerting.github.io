@@ -20,7 +20,7 @@ Semi-transparent darks are `color-mix` of `--bg` so they pick up the tint. Media
 
 ## Type
 
-Bricolage Grotesque for headings and the wordmark (width 75-80, weight 700-800), Geist
+Big Shoulders Display for headings and the wordmark (weight 800, 700 for large leads), Geist
 for text (17px, line height 1.6). Both OFL, latin subset, in assets/fonts.
 
 ## Media

@@ -1,8 +1,7 @@
 @font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
-  font-weight: 200 800;
-  font-stretch: 75% 100%;
+  font-family: "Big Shoulders Display";
+  src: url("../fonts/big-shoulders-display.woff2") format("woff2");
+  font-weight: 100 900;
   font-display: swap;
 }
 
@@ -23,7 +22,7 @@
   --muted: #a4a4aa;
   --accent: var(--signal);
   --on-accent: #0b0a0c;
-  --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --display: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
   --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --gutter: clamp(16px, 4vw, 56px);
   --max: 1400px;
@@ -139,10 +138,8 @@ h1,
 h2,
 h3 {
   font-family: var(--display);
-  font-stretch: 80%;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -215,11 +212,9 @@ p {
 
 .wordmark {
   font-family: var(--display);
-  font-stretch: 75%;
   font-weight: 800;
-  font-size: 1.625rem;
+  font-size: 1.75rem;
   line-height: 1;
-  letter-spacing: -0.03em;
   white-space: nowrap;
   text-decoration: none;
 }
@@ -583,11 +578,9 @@ main {
 .lede {
   max-width: 30ch;
   font-family: var(--display);
-  font-stretch: 85%;
-  font-weight: 500;
-  font-size: clamp(1.75rem, 1.1rem + 2.2vw, 3.25rem);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  font-size: clamp(1.875rem, 1.2rem + 2.3vw, 3.5rem);
+  line-height: 1.1;
 }
 
 .lede em {
