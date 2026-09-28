@@ -26,9 +26,14 @@ VENA_LOGOS_ZIP = Path(os.environ.get(
     "VENA_LOGOS_ZIP", HOME / "Downloads/03_Logos-20260928T135409Z-1-001.zip"))
 FDR_CLIPS = Path(os.environ.get("FDR_CLIPS", HOME / "fish-dont-return-clips"))
 FDR_MARKETING = Path(os.environ.get("FDR_MARKETING", HOME / "fish-dont-return/marketing"))
+WTB_KIT_ZIP = Path(os.environ.get(
+    "WTB_KIT_ZIP", HOME / "Downloads/Press Kit-20260928T155139Z-1-001.zip"))
+WTB_KIT = CACHE / "wtb_kit" / "Press Kit"
+WTB_TRAILER = WTB_KIT / "Trailers" / "Gameplay Trailer.mp4"
 
 VENA_APP = 4165740
 FDR_APP = 5270480
+WTB_APP = 4832970
 STEAM_CDN = "https://shared.akamai.steamstatic.com/store_item_assets/"
 
 CARD_SIZE = (720, 1280)
@@ -49,6 +54,7 @@ class Clip:
     size: tuple[int, int]
     fps: int
     crf: int
+    crop_x: int | None = None
 
 
 CLIPS = (
@@ -60,6 +66,10 @@ CLIPS = (
     Clip("fdr/clip-program", FDR_CLIPS / "program_coins.mp4", 0.0, 11.0, CLIP_SIZE, 30, 28),
     Clip("fdr/clip-lionfish", FDR_CLIPS / "lionfish_ram.mp4", 0.0, 14.0, CLIP_SIZE, 30, 28),
     Clip("fdr/clip-veil", FDR_CLIPS / "veil_descent.mp4", 0.0, 11.0, CLIP_SIZE, 30, 28),
+    Clip("wtb/card", WTB_TRAILER, 86.5, 8.0, CARD_SIZE, 60, 30, 875),
+    Clip("wtb/clip-upgrades", WTB_TRAILER, 37.8, 5.5, CLIP_SIZE, 30, 28, 480),
+    Clip("wtb/clip-smash", WTB_TRAILER, 62.0, 6.0, CLIP_SIZE, 30, 28, 875),
+    Clip("wtb/clip-prestige", WTB_TRAILER, 26.8, 7.0, CLIP_SIZE, 30, 28, 680),
 )
 
 
@@ -136,9 +146,10 @@ def encode_clip(clip: Clip, force: bool) -> None:
         return
     target.parent.mkdir(parents=True, exist_ok=True)
     w, h = clip.size
+    crop = "" if clip.crop_x is None else f"crop=ih*9/16:ih:{clip.crop_x}:0,"
     run(["ffmpeg", "-v", "error", "-y", "-ss", str(clip.start), "-t", str(clip.length),
          "-i", str(clip.source), "-an",
-         "-vf", f"scale={w}:{h}:flags=lanczos,format=yuv420p", "-r", str(clip.fps),
+         "-vf", f"{crop}scale={w}:{h}:flags=lanczos,format=yuv420p", "-r", str(clip.fps),
          "-c:v", "libx264", "-preset", "slower", "-tune", "animation", "-crf", str(clip.crf),
          "-profile:v", "high", "-movflags", "+faststart", "-threads", "6", str(target)])
     frame = CACHE / f"{clip.name.replace('/', '_')}_first.png"
@@ -146,21 +157,24 @@ def encode_clip(clip: Clip, force: bool) -> None:
     save_avif_jpeg(Image.open(frame), target.with_suffix(""))
 
 
-def build_trailer(force: bool) -> None:
-    target = OUT / "vena" / "trailer.mp4"
-    if not fresh(target, force):
-        return
-    movie = steam_details(VENA_APP)["movies"][0]
-    master = movie["hls_h264"]
-    run(["ffmpeg", "-v", "error", "-y", "-i", master, "-map", "0:v:0", "-map", "0:a:0",
+def encode_trailer(source: str, target: Path, poster_at: float) -> None:
+    target.parent.mkdir(parents=True, exist_ok=True)
+    run(["ffmpeg", "-v", "error", "-y", "-i", source, "-map", "0:v:0", "-map", "0:a:0",
+         "-vf", "scale=1920:1080:flags=lanczos", "-r", "30",
          "-c:v", "libx264", "-preset", "slow", "-tune", "animation", "-crf", "27",
          "-maxrate", "2800k", "-bufsize", "5600k", "-profile:v", "high",
          "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart",
          "-threads", "6", str(target)])
-    frame = CACHE / "vena_trailer_frame.png"
-    run(["ffmpeg", "-v", "error", "-y", "-ss", "6", "-i", str(target), "-frames:v", "1", str(frame)])
-    save_avif_jpeg(Image.open(frame).resize((1920, 1080), Image.Resampling.LANCZOS),
-                   OUT / "vena" / "trailer-poster")
+    frame = CACHE / f"{target.parent.name}_trailer_frame.png"
+    run(["ffmpeg", "-v", "error", "-y", "-ss", str(poster_at), "-i", str(target), "-frames:v", "1", str(frame)])
+    save_avif_jpeg(Image.open(frame), target.with_name("trailer-poster"))
+
+
+def build_trailers(force: bool) -> None:
+    if fresh(OUT / "vena" / "trailer.mp4", force):
+        encode_trailer(steam_details(VENA_APP)["movies"][0]["hls_h264"], OUT / "vena" / "trailer.mp4", 6)
+    if fresh(OUT / "wtb" / "trailer.mp4", force):
+        encode_trailer(str(WTB_KIT / "Trailers" / "Demo Trailer.mp4"), OUT / "wtb" / "trailer.mp4", 4)
 
 
 def trimmed_logo(source: Path, target: Path, width: int) -> None:
@@ -183,48 +197,66 @@ def vena_logo_kit() -> Path:
     return kit / "03_Logos"
 
 
+def wtb_kit() -> Path:
+    if not WTB_KIT.exists():
+        with zipfile.ZipFile(WTB_KIT_ZIP) as archive:
+            for member in archive.namelist():
+                if "Ingame assets" not in member and not member.endswith(".psd"):
+                    archive.extract(member, WTB_KIT.parent)
+    return WTB_KIT
+
+
 def build_images(force: bool) -> None:
-    vena_hero = Image.open(steam_image(VENA_APP, "library_hero_2x"))
-    fdr_hero = Image.open(steam_image(FDR_APP, "library_hero_2x"))
-    if fresh(OUT / "vena" / "hero-1920.avif", force):
-        widths(vena_hero, OUT / "vena" / "hero", HERO_WIDTHS)
-    if fresh(OUT / "fdr" / "hero-1920.avif", force):
-        widths(fdr_hero, OUT / "fdr" / "hero", HERO_WIDTHS)
+    kit = wtb_kit()
+    heroes = {
+        "vena": Image.open(steam_image(VENA_APP, "library_hero_2x")),
+        "fdr": Image.open(steam_image(FDR_APP, "library_hero_2x")),
+        "wtb": Image.open(kit / "Capsule Art" / "HeldenkapselBibliothek.png"),
+    }
+    logos = {
+        "vena": vena_logo_kit() / "Bibliothekslogo.png",
+        "fdr": FDR_MARKETING / "steam/images/library/library_logo_1280.png",
+        "wtb": kit / "Capsule Art" / "Bibliothekslogo.png",
+    }
+    shots = {
+        "vena": [fetch(s["path_full"], CACHE / f"vena_ss_{i:02d}.jpg")
+                 for i, s in enumerate(steam_details(VENA_APP)["screenshots"], 1)],
+        "fdr": sorted((FDR_MARKETING / "steam/images/screenshots").glob("*.jpg")),
+        "wtb": sorted((kit / "Screenshots").glob("*.jpg")),
+    }
+    capsules = {
+        "vena": steam_image(VENA_APP, "library_capsule_2x"),
+        "fdr": steam_image(FDR_APP, "library_capsule_2x"),
+        "wtb": kit / "Capsule Art" / "Bibliothekkapsel.png",
+    }
+    main_capsules = {
+        "vena": steam_image(VENA_APP, "main_capsule_2x"),
+        "fdr": steam_image(FDR_APP, "main_capsule_2x"),
+        "wtb": kit / "Capsule Art" / "Hauptkapsel.png",
+    }
 
-    if fresh(OUT / "vena" / "logo.avif", force):
-        trimmed_logo(vena_logo_kit() / "Bibliothekslogo.png", OUT / "vena" / "logo", 960)
-    if fresh(OUT / "fdr" / "logo.avif", force):
-        trimmed_logo(FDR_MARKETING / "steam/images/library/library_logo_1280.png",
-                     OUT / "fdr" / "logo", 960)
-
-    vena_shots = [fetch(s["path_full"], CACHE / f"vena_ss_{i:02d}.jpg")
-                  for i, s in enumerate(steam_details(VENA_APP)["screenshots"], 1)]
-    fdr_shots = sorted((FDR_MARKETING / "steam/images/screenshots").glob("*.jpg"))
-    for game, shots in (("vena", vena_shots), ("fdr", fdr_shots)):
-        for i, shot in enumerate(shots, 1):
+    for game in heroes:
+        if fresh(OUT / game / "hero-1920.avif", force):
+            widths(heroes[game], OUT / game / "hero", HERO_WIDTHS)
+        if fresh(OUT / game / "logo.avif", force):
+            trimmed_logo(logos[game], OUT / game / "logo", 960)
+        for i, shot in enumerate(shots[game], 1):
             stem = OUT / game / "shots" / f"{i:02d}"
             if fresh(stem.with_name(f"{i:02d}-1920.avif"), force):
                 widths(Image.open(shot), stem, SHOT_WIDTHS)
-
-    for game, app in (("vena", VENA_APP), ("fdr", FDR_APP)):
-        target = OUT / game / "capsule"
-        if fresh(target.with_suffix(".avif"), force):
-            save_avif_jpeg(Image.open(steam_image(app, "library_capsule_2x")), target)
-
-    for game, app in (("vena", VENA_APP), ("fdr", FDR_APP)):
-        target = OUT / game / "og"
-        if fresh(target.with_suffix(".jpg"), force):
-            capsule = Image.open(steam_image(app, "main_capsule_2x"))
-            capsule.convert("RGB").resize(OG_SIZE, Image.Resampling.LANCZOS).save(
-                target.with_suffix(".jpg"), quality=86, optimize=True)
+        if fresh(OUT / game / "capsule.avif", force):
+            save_avif_jpeg(Image.open(capsules[game]), OUT / game / "capsule")
+        if fresh(OUT / game / "og.jpg", force):
+            Image.open(main_capsules[game]).convert("RGB").resize(OG_SIZE, Image.Resampling.LANCZOS).save(
+                OUT / game / "og.jpg", quality=86, optimize=True)
 
     target = OUT / "site" / "og.jpg"
     if fresh(target, force):
         target.parent.mkdir(parents=True, exist_ok=True)
-        half = (OG_SIZE[0] // 2, OG_SIZE[1])
-        sheet = Image.new("RGB", OG_SIZE, (11, 11, 12))
-        sheet.paste(cover(vena_hero, half, 0.8), (0, 0))
-        sheet.paste(cover(fdr_hero, half, 0.4), (half[0], 0))
+        third = (OG_SIZE[0] // 3, OG_SIZE[1])
+        sheet = Image.new("RGB", OG_SIZE, (11, 10, 12))
+        for i, (game, focus) in enumerate((("vena", 0.8), ("wtb", 0.5), ("fdr", 0.4))):
+            sheet.paste(cover(heroes[game], third, focus), (i * third[0], 0))
         sheet.save(target, quality=86, optimize=True)
 
 
@@ -255,6 +287,17 @@ def build_press(force: bool) -> None:
             *[(shot, f"screenshots/{shot.name}")
               for shot in sorted((FDR_MARKETING / "steam/images/screenshots").glob("*.jpg"))],
         ],
+        "what-the-buck-press-assets.zip": [
+            (WTB_KIT / "Capsule Art" / "Bibliothekslogo.png", "logo/what-the-buck-logo.png"),
+            (WTB_KIT / "Capsule Art" / "SquareProfilePicture.png", "logo/what-the-buck-square.png"),
+            (WTB_KIT / "Capsule Art" / "Bibliothekkapsel.png", "art/library-capsule-600x900.png"),
+            (WTB_KIT / "Capsule Art" / "VertikaleKapsel.png", "art/vertical-capsule-748x896.png"),
+            (WTB_KIT / "Capsule Art" / "Hauptkapsel.png", "art/main-capsule-1232x706.png"),
+            (WTB_KIT / "Capsule Art" / "Titelbereichskapsel.png", "art/header-920x430.png"),
+            (WTB_KIT / "Capsule Art" / "HeldenkapselBibliothek.png", "art/library-hero-3840x1240.png"),
+            *[(shot, f"screenshots/what-the-buck-{i:02d}.jpg")
+              for i, shot in enumerate(sorted((WTB_KIT / "Screenshots").glob("*.jpg")), 1)],
+        ],
     }
     for name, files in bundles.items():
         target = press / name
@@ -270,10 +313,11 @@ def main() -> int:
     parser.add_argument("--force", action="store_true", help="rebuild files that already exist")
     args = parser.parse_args()
     CACHE.mkdir(exist_ok=True)
+    wtb_kit()
     for clip in CLIPS:
         encode_clip(clip, args.force)
     build_images(args.force)
-    build_trailer(args.force)
+    build_trailers(args.force)
     build_press(args.force)
     return 0
 

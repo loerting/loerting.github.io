@@ -1,12 +1,13 @@
 # Loerting Games website
 
-Static site for Loerting Games and its two games, Vena and Fish Don't Return. Plain
+Static site for Loerting Games: Vena, What the Buck?! and Fish Don't Return. Plain
 HTML, one stylesheet, one small script. No build step: GitHub Pages serves the repo
 as it is. Design rules are in [DESIGN.md](DESIGN.md).
 
 ```
-index.html              studio page with the two game cards
-vena/                   Vena page
+index.html              studio page with the game cards
+vena/                   Vena page and its Android privacy policy
+what-the-buck/          What the Buck?! page
 fish-dont-return/       Fish Don't Return page
 press/                  facts and downloads for press
 legal/                  imprint and privacy
@@ -28,9 +29,11 @@ tools/build_media.py               # rebuild missing media (--force for all)
 
 `build_media.py` reads the sources on the author's machine: the Steam store (cached in
 `.cache/`), the vertical clips in `/mnt/nvme/09_ShortClips` and
-`~/fish-dont-return-clips`, the Fish Don't Return marketing folder and the Vena logo
-zip. Paths can be overridden with `VENA_CLIPS`, `FDR_CLIPS`, `FDR_MARKETING` and
-`VENA_LOGOS_ZIP`. Which clip plays where is the `CLIPS` table at the top.
+`~/fish-dont-return-clips`, the Fish Don't Return marketing folder, the Vena logo zip
+and the What the Buck?! press kit zip (its trailer is cut into the vertical clips).
+Paths can be overridden with `VENA_CLIPS`, `FDR_CLIPS`, `FDR_MARKETING`,
+`VENA_LOGOS_ZIP` and `WTB_KIT_ZIP`. Which clip plays where is the `CLIPS` table at the
+top.
 
 ## Going live on GitHub Pages
 
