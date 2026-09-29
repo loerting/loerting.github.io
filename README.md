@@ -31,6 +31,8 @@ tools/build_media.py               # rebuild missing media (--force for all)
 `.cache/`), the vertical clips in `/mnt/nvme/09_ShortClips` and
 `~/fish-dont-return-clips`, the Fish Don't Return marketing folder, the Vena logo zip
 and the What the Buck?! press kit zip (its trailer is cut into the vertical clips).
+Fish Don't Return's logo, capsules, screenshots and press downloads all come from its
+marketing folder, which is ahead of its Steam page; only its hero is read from Steam.
 Paths can be overridden with `VENA_CLIPS`, `FDR_CLIPS`, `FDR_MARKETING`,
 `VENA_LOGOS_ZIP` and `WTB_KIT_ZIP`. Which clip plays where is the `CLIPS` table at the
 top.
