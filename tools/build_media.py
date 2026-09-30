@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import filecmp
 import json
 import os
 import shutil
@@ -263,9 +264,12 @@ def build_images(force: bool) -> None:
 def build_press(force: bool) -> None:
     press = ROOT / "assets" / "press"
     press.mkdir(parents=True, exist_ok=True)
-    pdf = press / "fish-dont-return-press-kit.pdf"
-    if fresh(pdf, force):
-        shutil.copy(FDR_MARKETING / "press_kit/press_kit.pdf", pdf)
+    # Fish Don't Return's kit in English and German, copied again whenever it was rebuilt.
+    for name, source in (("fish-dont-return-press-kit.pdf", "press_kit.pdf"),
+                         ("fish-dont-return-press-kit-de.pdf", "press_kit_de.pdf")):
+        pdf, kit = press / name, FDR_MARKETING / "press_kit" / source
+        if fresh(pdf, force) or not filecmp.cmp(kit, pdf, shallow=False):
+            shutil.copy(kit, pdf)
 
     kit = vena_logo_kit()
     bundles = {

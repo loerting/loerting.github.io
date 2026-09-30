@@ -23,7 +23,7 @@ tools/                  media build, screenshot grid markup, site check
 
 ```sh
 python3 -m http.server 8765        # then open http://127.0.0.1:8765
-tools/check_site.py                # links, anchors, alt/size, banned characters
+tools/check_site.py                # links, anchors, alt/size, download sizes, banned characters
 tools/check_site.py --external     # also requests every external link
 tools/build_media.py               # rebuild missing media (--force for all)
 ```

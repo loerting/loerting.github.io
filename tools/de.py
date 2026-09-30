@@ -249,7 +249,8 @@ PAIRS = [
     (">Still in development<", ">Noch in Entwicklung<"),
     ("Wishlist Fish Don’t Return on Steam to hear when there is a demo and when it comes out.",
      "Setz Fish Don’t Return auf deine Steam-Wunschliste, dann erfährst du, wann es eine Demo gibt und wann das Spiel erscheint."),
-    ("<span>PDF, 5.0 MB</span>", "<span>PDF, 5,0 MB</span>"),
+    ("<span>PDF, 6.9 MB</span>", "<span>PDF, 6,9 MB</span>"),
+    ('fish-dont-return-press-kit.pdf"', 'fish-dont-return-press-kit-de.pdf"'),
     (">Logos and screenshots ", ">Logos und Screenshots "),
 
     ("Press · Loerting Games", "Presse · Loerting Games"),
@@ -269,7 +270,7 @@ PAIRS = [
     (">Logos, art and screenshots ", ">Logos, Artwork und Screenshots "),
     ("<span>ZIP, 9.1 MB</span>", "<span>ZIP, 9,1 MB</span>"),
     ("<span>ZIP, 4.4 MB</span>", "<span>ZIP, 4,4 MB</span>"),
-    ("<span>ZIP, 10.6 MB</span>", "<span>ZIP, 10,6 MB</span>"),
+    ("<span>ZIP, 10.4 MB</span>", "<span>ZIP, 10,4 MB</span>"),
     (">Game page ", ">Spielseite "),
     (">Incremental<", ">Incremental Game<"),
     ("What the Buck?! is an incremental game about destroying money. Smash stacks of cash, upgrade your destructive power, discover game-changing skill tree upgrades, prestige and experience the dopamine of numbers exploding.",

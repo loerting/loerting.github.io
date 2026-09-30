@@ -18,6 +18,8 @@ SKIP_DIRS = {".git", ".cache", ".playwright", ".playwright-cli", "tools"}
 URL_ATTRS = {"href", "src", "poster", "data-src"}
 BANNED_TEXT = {"—": "em-dash", "–": "en-dash", "...": "three dots (use …)"}
 EMAIL = re.compile(r"mailto:|[\w.+-]+@[\w-]+\.[a-z]{2,}", re.I)
+# A download's label next to its link, as "PDF, 6.9 MB" or "ZIP, 10,4 MB".
+DOWNLOAD = re.compile(r'<a href="([^"]+\.(?:pdf|zip))">[^<]*<span>(?:PDF|ZIP), ([\d.,]+) MB</span>')
 BANNED_CSS = {"transition: all": "transition: all", "outline: none": "outline: none"}
 
 
@@ -123,6 +125,10 @@ def main() -> int:
                 problems.append(f"{name}: img without alt {label}")
             if not (img.get("width") and img.get("height")):
                 problems.append(f"{name}: img without width/height {label}")
+        for url, label in DOWNLOAD.findall(path.read_text(encoding="utf-8")):
+            target = resolve(path, url)
+            if target.exists() and float(label.replace(",", ".")) != round(target.stat().st_size / 1e6, 1):
+                problems.append(f"{name}: {url} is {target.stat().st_size / 1e6:.1f} MB, labelled {label} MB")
         if EMAIL.search(path.read_text(encoding="utf-8")):
             problems.append(f"{name}: plain email address or mailto in the HTML")
         text = "".join(page.text)
