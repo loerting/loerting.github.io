@@ -1,7 +1,6 @@
 """German text for the /de/ pages, as (English source, German) pairs."""
 
 PAIRS = [
-    # Shared
     (">Skip to content<", ">Zum Inhalt springen<"),
     ('aria-label="Main"', 'aria-label="Hauptmenü"'),
     (">Games</a>", ">Spiele</a>"),
@@ -56,7 +55,6 @@ PAIRS = [
     ("Read the code of the hunters down there and improve your own programs.",
      "Lies den Code der Jäger dort unten und verbessere deine eigenen Programme."),
 
-    # Studio page
     ("Loerting Games is an independent game studio in Tyrol, Austria, making Vena, What the Buck?! and Fish Don't Return.",
      "Loerting Games ist ein unabhängiges Spielestudio in Tirol, Österreich, und macht Vena, What the Buck?! und Fish Don't Return."),
     ("An independent game studio in Tyrol, Austria, making Vena, What the Buck?! and Fish Don't Return.",
@@ -73,7 +71,6 @@ PAIRS = [
     ("For press, review keys or anything else, ", "Für Presseanfragen, Review-Keys oder alles andere "),
     (">send an email<", ">schreib eine E-Mail<"),
 
-    # Vena
     ("Vena · An automation roguelike · Loerting Games", "Vena · Ein Automation-Roguelike · Loerting Games"),
     ("Vena is an automation roguelike where every run fits in one sitting. Place hexagonal tiles, roll dice in the shop and survive nine phases. Out on Steam 9 November 2026.",
      "Vena ist ein Automation-Roguelike, bei dem jeder Run in eine Sitzung passt. Platziere sechseckige Kacheln, würfle im Shop und überstehe neun Phasen. Erscheint am 9. November 2026 auf Steam."),
@@ -155,7 +152,6 @@ PAIRS = [
      "Weniger visuelle Reize, ein statischer Hintergrund, frei belegbare Steuerung und eine besonders gut lesbare Schrift"),
     (">Follow Vena<", ">Vena folgen<"),
 
-    # What the Buck?!
     ("What the Buck?! · An incremental game · Loerting Games", "What the Buck?! · Ein Incremental Game · Loerting Games"),
     ("What the Buck?! is an incremental game about destroying money. Smash stacks of cash, upgrade your destructive power, discover skill tree upgrades and prestige. Out on Steam 9 November 2026.",
      "What the Buck?! ist ein Incremental Game, in dem du Geld zerstörst. Zerschmettere Geldstapel, verbessere deine Zerstörungskraft, entdecke Skilltree-Upgrades und nutze das Prestige-System. Erscheint am 9. November 2026 auf Steam."),
@@ -190,7 +186,6 @@ PAIRS = [
     (">Mouse or touch<", ">Maus oder Touch<"),
     (">Follow What the Buck?!<", ">What the Buck?! folgen<"),
 
-    # Fish Don't Return
     ("Fish Don't Return · A programming game in the Mariana Trench · Loerting Games",
      "Fish Don't Return · Ein Programmierspiel im Marianengraben · Loerting Games"),
     ("Program fish to explore the deepest trench on Earth, using blocks that read like plain English. Read the code of the hunters down there, and find out what sank the ship at the bottom.",
@@ -257,7 +252,6 @@ PAIRS = [
     ("<span>PDF, 5.0 MB</span>", "<span>PDF, 5,0 MB</span>"),
     (">Logos and screenshots ", ">Logos und Screenshots "),
 
-    # Press
     ("Press · Loerting Games", "Presse · Loerting Games"),
     ("Facts, logos, art and screenshots for Vena, What the Buck?! and Fish Don't Return, free to use in coverage.",
      "Fakten, Logos, Artwork und Screenshots zu Vena, What the Buck?! und Fish Don't Return, frei für die Berichterstattung."),
@@ -291,7 +285,6 @@ PAIRS = [
      "Loerting Games ist ein unabhängiges Spielestudio in Tirol, Österreich, gegründet von Leonhard Kohl-Lörting, der an der Universität Innsbruck Informatik studiert hat. Vena ist aus einem Game-Jam-Prototyp entstanden und die erste kommerzielle Veröffentlichung des Studios."),
     (">Email (needs JavaScript)<", ">E-Mail (braucht JavaScript)<"),
 
-    # Imprint and privacy
     ("Imprint and Privacy · Loerting Games", "Impressum und Datenschutz · Loerting Games"),
     ("Imprint (Impressum) and privacy notice for the Loerting Games website.", "Impressum und Datenschutzerklärung der Website von Loerting Games."),
     (">Imprint and privacy<", ">Impressum und Datenschutz<"),
@@ -319,7 +312,6 @@ PAIRS = [
     ('You have the right to access, correct, delete and restrict the processing of your personal data, to data portability and to object. To use them, write to the address above. You can also lodge a complaint with the Austrian data protection authority, the <a href="https://www.dsb.gv.at/" lang="de">Datenschutzbehörde</a>.',
      'Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner personenbezogenen Daten, auf Datenübertragbarkeit und auf Widerspruch. Schreib dafür an die Adresse oben. Beschweren kannst du dich auch bei der österreichischen <a href="https://www.dsb.gv.at/">Datenschutzbehörde</a>.'),
 
-    # Vena privacy policy
     ("Privacy Policy for Vena · Loerting Games", "Datenschutzerklärung für Vena · Loerting Games"),
     ("What the Android version of Vena does with your data: it collects, transmits and shares none.",
      "Was die Android-Version von Vena mit deinen Daten macht: Sie sammelt, überträgt und teilt keine."),

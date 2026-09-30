@@ -224,8 +224,6 @@ def build_images(force: bool) -> None:
         "fdr": sorted((FDR_MARKETING / "steam/images/screenshots").glob("*.jpg")),
         "wtb": sorted((kit / "Screenshots").glob("*.jpg")),
     }
-    # Fish Don't Return's own marketing folder is ahead of its Steam page, so its capsules
-    # come from there, as its logo, screenshots and press downloads do.
     capsules = {
         "vena": steam_image(VENA_APP, "library_capsule_2x"),
         "fdr": FDR_MARKETING / "steam/images/library/library_capsule_600x900.png",
