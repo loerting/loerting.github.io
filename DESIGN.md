@@ -32,4 +32,5 @@ it. With reduced motion nothing plays by itself.
 
 ## Copy
 
-Short and plain. No em-dashes, no slogans. Buttons in sentence case.
+Short and plain. No em-dashes, no slogans. Buttons in sentence case. German addresses the reader as "du".
+The language follows the browser on the first visit and the DE/EN switch after that.

@@ -12,6 +12,8 @@ from pathlib import Path
 from urllib.parse import urldefrag, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
+from de import KEEP
 SKIP_DIRS = {".git", ".cache", ".playwright", ".playwright-cli", "tools"}
 URL_ATTRS = {"href", "src", "poster", "data-src"}
 BANNED_TEXT = {"—": "em-dash", "–": "en-dash", "...": "three dots (use …)"}
@@ -26,16 +28,22 @@ class Page(HTMLParser):
         self.ids: set[str] = set()
         self.images: list[dict[str, str | None]] = []
         self.text: list[str] = []
+        self.strings: set[str] = set()
         self.has_title = False
-        self.lang = False
+        self.lang = ""
         self._skip = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         a = dict(attrs)
         if tag in ("script", "style"):
             self._skip += 1
-        if tag == "html" and a.get("lang"):
-            self.lang = True
+        if tag == "html":
+            self.lang = a.get("lang") or ""
+        for name in ("alt", "aria-label", "title"):
+            if a.get(name):
+                self.strings.add(" ".join(a[name].split()))
+        if tag == "meta" and a.get("content") and (a.get("name") == "description" or a.get("property") in ("og:title", "og:description")):
+            self.strings.add(a["content"])
         if tag == "title":
             self.has_title = True
         if "id" in a and a["id"]:
@@ -57,6 +65,9 @@ class Page(HTMLParser):
     def handle_data(self, data: str) -> None:
         if not self._skip:
             self.text.append(data)
+            clean = " ".join(data.split())
+            if re.search(r"[A-Za-z]", clean):
+                self.strings.add(clean)
 
 
 def pages() -> list[Path]:
@@ -118,6 +129,19 @@ def main() -> int:
         for char, label in BANNED_TEXT.items():
             if char in text:
                 problems.append(f"{name}: {label} in visible text")
+
+    for path, page in parsed.items():
+        name = path.relative_to(ROOT)
+        if name.parts[0] != "de":
+            continue
+        english = ROOT.joinpath(*name.parts[1:])
+        if page.lang != "de":
+            problems.append(f"{name}: lang is not de")
+        if english not in parsed:
+            problems.append(f"{name}: no English page at {english.relative_to(ROOT)}")
+            continue
+        for text in sorted((page.strings & parsed[english].strings) - KEEP):
+            problems.append(f"{name}: not translated: {text[:80]}")
 
     for css in (ROOT / "assets").rglob("*.css"):
         source = css.read_text(encoding="utf-8")

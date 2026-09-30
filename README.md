@@ -6,6 +6,7 @@ as it is. Design rules are in [DESIGN.md](DESIGN.md).
 
 ```
 index.html              studio page with the game cards
+de/                     German pages, built by tools/build_de.py
 vena/                   Vena page and its Android privacy policy
 what-the-buck/          What the Buck?! page
 fish-dont-return/       Fish Don't Return page
@@ -26,6 +27,11 @@ tools/check_site.py                # links, anchors, alt/size, banned characters
 tools/check_site.py --external     # also requests every external link
 tools/build_media.py               # rebuild missing media (--force for all)
 ```
+
+German pages under `de/` are built from the English ones. After changing English text,
+run `tools/build_de.py` and add the German for any new sentence to `tools/de.py`;
+`check_site.py` lists every English sentence still left on a German page. The German
+uses "du", like Vena's German translation.
 
 `build_media.py` reads the sources on the author's machine: the Steam store (cached in
 `.cache/`), the vertical clips in `/mnt/nvme/09_ShortClips` and

@@ -1,8 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://loertinggames.com/</loc></url>
-  <url><loc>https://loertinggames.com/vena/</loc></url>
-  <url><loc>https://loertinggames.com/what-the-buck/</loc></url>
-  <url><loc>https://loertinggames.com/fish-dont-return/</loc></url>
-  <url><loc>https://loertinggames.com/press/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://loertinggames.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/vena/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/vena/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/vena/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/de/vena/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/vena/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/vena/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/what-the-buck/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/what-the-buck/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/what-the-buck/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/de/what-the-buck/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/what-the-buck/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/what-the-buck/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/fish-dont-return/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/fish-dont-return/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/fish-dont-return/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/de/fish-dont-return/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/fish-dont-return/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/fish-dont-return/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/press/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/press/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/press/"/>
+  </url>
+  <url>
+    <loc>https://loertinggames.com/de/press/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://loertinggames.com/press/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://loertinggames.com/de/press/"/>
+  </url>
 </urlset>

@@ -4,6 +4,11 @@ const saveData = navigator.connection?.saveData === true;
 const IN_VIEW = 0.6;
 const TOUCH_PREVIEW_MS = 5000;
 const MAIL = ["moc.liamg", "lk80drahnoel"];
+const STRINGS = {
+  en: { play: "Play clip", pause: "Pause clip", count: (i, n) => `${i} of ${n}` },
+  de: { play: "Clip abspielen", pause: "Clip anhalten", count: (i, n) => `${i} von ${n}` },
+};
+const TEXT = STRINGS[document.documentElement.lang] ?? STRINGS.en;
 
 const mayAutoplay = () => !reducedMotion.matches && !saveData;
 
@@ -66,8 +71,8 @@ function setUpClips() {
     const toggle = clip.querySelector(".clip__toggle");
     video.addEventListener("playing", () => clip.classList.add("is-live", "is-playing"));
     video.addEventListener("pause", () => clip.classList.remove("is-playing"));
-    video.addEventListener("play", () => toggle.setAttribute("aria-label", "Pause clip"));
-    video.addEventListener("pause", () => toggle.setAttribute("aria-label", "Play clip"));
+    video.addEventListener("play", () => toggle.setAttribute("aria-label", TEXT.pause));
+    video.addEventListener("pause", () => toggle.setAttribute("aria-label", TEXT.play));
     toggle.addEventListener("click", () => {
       if (video.paused) {
         pausedByUser.delete(clip);
@@ -98,7 +103,7 @@ function setUpLightbox() {
     index = (next + links.length) % links.length;
     image.src = links[index].href;
     image.alt = links[index].querySelector("img").alt;
-    caption.textContent = `${index + 1} of ${links.length}`;
+    caption.textContent = TEXT.count(index + 1, links.length);
   };
   const open = (at) => {
     show(at);

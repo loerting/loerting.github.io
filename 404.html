@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-either-lang data-title-de="Hier unten ist nichts · Loerting Games">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Nothing down here · Loerting Games</title>
-  <meta name="theme-color" content="#0b0b0c">
+  <meta name="theme-color" content="#0b0a0c">
   <meta name="robots" content="noindex">
+  <script src="/assets/js/lang.js"></script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/css/site.css">
   <script type="module" src="/assets/js/site.js"></script>
@@ -14,22 +15,38 @@
   <header class="site-header">
     <div class="wrap">
       <a class="wordmark" href="/">Loerting Games</a>
-      <nav aria-label="Main">
+      <nav aria-label="Main" lang="en" data-show="en">
         <ul class="nav">
           <li><a href="/#games">Games</a></li>
           <li><a href="/press/">Press</a></li>
           <li><a href="/press/#contact" data-mail>Contact</a></li>
+          <li><a class="lang-switch" href="/de/" hreflang="de" lang="de" data-lang="de" aria-label="Deutsch">DE</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Hauptmenü" lang="de" data-show="de">
+        <ul class="nav">
+          <li><a href="/de/#games">Spiele</a></li>
+          <li><a href="/de/press/">Presse</a></li>
+          <li><a href="/de/press/#contact" data-mail>Kontakt</a></li>
+          <li><a class="lang-switch" href="/" hreflang="en" lang="en" data-lang="en" aria-label="English">EN</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main id="main" class="page wrap">
-    <div class="page__head">
+    <div class="page__head" lang="en" data-show="en">
       <h1>Nothing down here.</h1>
       <p>This page doesn’t exist, or it has moved.</p>
       <div class="actions">
         <a class="button button--primary" href="/">Back to the games</a>
+      </div>
+    </div>
+    <div class="page__head" lang="de" data-show="de">
+      <h1>Hier unten ist nichts.</h1>
+      <p>Diese Seite gibt es nicht, oder sie ist umgezogen.</p>
+      <div class="actions">
+        <a class="button button--primary" href="/de/">Zurück zu den Spielen</a>
       </div>
     </div>
   </main>
