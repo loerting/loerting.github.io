@@ -8,7 +8,7 @@ as it is. Design rules are in [DESIGN.md](DESIGN.md).
 index.html              studio page with the game cards
 de/                     German pages, built by tools/build_de.py
 vena/                   Vena page and its Android privacy policy
-what-the-buck/          What the Buck?! page
+what-the-buck/          What the Buck?! page and its Android privacy policy
 fish-dont-return/       Fish Don't Return page
 press/                  facts and downloads for press
 legal/                  imprint and privacy

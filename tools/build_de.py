@@ -19,6 +19,7 @@ PAGES = {
     "press/index.html": "press/",
     "legal/index.html": "legal/",
     "vena/PRIVACY_POLICY.html": "vena/PRIVACY_POLICY",
+    "what-the-buck/PRIVACY_POLICY.html": "what-the-buck/PRIVACY_POLICY",
 }
 URL_ATTR = re.compile(r'\b(href|src|poster|data-src|srcset)="([^"]*)"')
 SHARED = re.compile(r"^((?:\.\./)*)(assets/|favicon\.svg)")

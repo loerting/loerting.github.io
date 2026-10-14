@@ -350,6 +350,30 @@ PAIRS = [
      "Wenn sich diese Erklärung ändert, erscheint die neue Fassung unter dieser Adresse und das Datum oben ändert sich."),
     ("Questions about this policy:", "Fragen zu dieser Erklärung:"),
     (">email address shown with JavaScript turned on<", ">E-Mail-Adresse wird mit aktiviertem JavaScript angezeigt<"),
+
+    ("Privacy Policy for What the Buck?! · Loerting Games", "Datenschutzerklärung für What the Buck?! · Loerting Games"),
+    ("What the Android version of What the Buck?! does with your data: it collects, transmits and shares none.",
+     "Was die Android-Version von What the Buck?! mit deinen Daten macht: Sie sammelt, überträgt und teilt keine."),
+    (">Privacy Policy for What the Buck?!<", ">Datenschutzerklärung für What the Buck?!<"),
+    (">Last updated: 14 October 2026<", ">Zuletzt aktualisiert: 14. Oktober 2026<"),
+    ("What the Buck?! (“the game”) is developed and published by Leonhard Kohl-Lörting (“I”, “me”). This policy explains what the Android version of What the Buck?! does with your data.",
+     "What the Buck?! („das Spiel“) wird von Leonhard Kohl-Lörting („ich“) entwickelt und veröffentlicht. Diese Erklärung beschreibt, was die Android-Version von What the Buck?! mit deinen Daten macht."),
+    ("What the Buck?! does not collect, transmit or share any personal data. It has no accounts, no advertising, no analytics and no tracking. It does not need an internet connection to play.",
+     "What the Buck?! sammelt, überträgt und teilt keine personenbezogenen Daten. Es gibt keine Konten, keine Werbung, keine Analyse und kein Tracking. Zum Spielen braucht What the Buck?! keine Internetverbindung."),
+    ("What the Buck?! saves your game progress and your settings locally, in the app’s private storage.",
+     "What the Buck?! speichert deinen Spielfortschritt und deine Einstellungen lokal im privaten Speicher der App."),
+    ("This data never leaves your device. It is not readable by me or by anyone else. If you uninstall What the Buck?!, Android deletes it along with the app.",
+     "Diese Daten verlassen dein Gerät nie. Weder ich noch sonst jemand kann sie lesen. Wenn du What the Buck?! deinstallierst, löscht Android sie zusammen mit der App."),
+    ("None. What the Buck?! makes no network requests of its own and contains no advertising, analytics, crash-reporting or attribution SDKs.",
+     "Keine. What the Buck?! stellt selbst keine Netzwerkanfragen und enthält keine SDKs für Werbung, Analyse, Absturzberichte oder Attribution."),
+    ("What the Buck?! has buttons that open external pages in your browser or in another app. Opening one is always your choice, and once you leave the game you are covered by that service’s own privacy policy, not this one. Those destinations are:",
+     "What the Buck?! hat Schaltflächen, die externe Seiten in deinem Browser oder in einer anderen App öffnen. Ob du eine davon öffnest, entscheidest immer du, und sobald du das Spiel verlässt, gilt die Datenschutzerklärung des jeweiligen Dienstes, nicht diese. Die Ziele sind:"),
+    (">the studio’s other social media pages, such as YouTube, TikTok, X and Bluesky<", ">die anderen Social-Media-Seiten des Studios, etwa YouTube, TikTok, X und Bluesky<"),
+    (">the press kit, a folder on Google Drive: <", ">das Pressekit, ein Ordner auf Google Drive: <"),
+    ("What the Buck?! is a paid app with no in-app purchases. Your purchase is handled entirely by Google Play. I never see your payment details. Google’s handling of that transaction is covered by the Google Play Terms of Service and Google’s privacy policy.",
+     "What the Buck?! ist eine kostenpflichtige App ohne In-App-Käufe. Den Kauf wickelt vollständig Google Play ab. Deine Zahlungsdaten sehe ich nie. Für die Abwicklung durch Google gelten die Nutzungsbedingungen von Google Play und die Datenschutzerklärung von Google."),
+    ("What the Buck?! contains no data collection, no ads and no social features, so there is nothing for it to collect from anyone, including children under 13.",
+     "What the Buck?! sammelt keine Daten, zeigt keine Werbung und hat keine sozialen Funktionen. Es gibt also nichts, was What the Buck?! von irgendwem sammeln könnte, auch nicht von Kindern unter 13."),
 ]
 
 KEEP = {
@@ -360,5 +384,5 @@ KEEP = {
     "Windows, macOS, Linux, Steam Deck", "Windows, macOS, Linux", "Murstraße 38b", "29", "31",
     "Steam:", "Discord:", "YouTube:", "Instagram:", "store.steampowered.com", "discord.gg",
     "www.youtube.com", "www.instagram.com", "Datenschutzbehörde", "GitHub Privacy Statement",
-    "Vena · Loerting Games",
+    "Vena · Loerting Games", "drive.google.com",
 }
