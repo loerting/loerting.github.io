@@ -2,3 +2,5 @@
 .playwright-cli/
 __pycache__/
 .playwright/
+DESIGN.md
+README.md

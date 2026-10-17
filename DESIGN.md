@@ -16,11 +16,11 @@ own accent and a background tinted to match.
 | `--accent` | per page | red, What the Buck?! `#84d48c`, Fish Don't Return `#77d9d5` |
 
 Semi-transparent darks are `color-mix` of `--bg` so they pick up the tint. Media corners
-18px, buttons fully round.
+18px, buttons rounded 10px, nav chips 8px.
 
 ## Type
 
-Big Shoulders Display for headings and the wordmark (weight 800, 700 for large leads), Geist
+Big Shoulders Display for headings and the wordmark (weight 800, 700 for large leads), Work Sans
 for text (17px, line height 1.6). Both OFL, latin subset, in assets/fonts.
 
 ## Media
