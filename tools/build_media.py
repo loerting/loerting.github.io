@@ -171,11 +171,15 @@ def encode_trailer(source: str, target: Path, poster_at: float) -> None:
     save_avif_jpeg(Image.open(frame), target.with_name("trailer-poster"))
 
 
+WTB_RELEASE_TRAILER = CACHE / "wtb_release_trailer.mp4"
+
+
 def build_trailers(force: bool) -> None:
     if fresh(OUT / "vena" / "trailer.mp4", force):
         encode_trailer(steam_details(VENA_APP)["movies"][0]["hls_h264"], OUT / "vena" / "trailer.mp4", 6)
     if fresh(OUT / "wtb" / "trailer.mp4", force):
-        encode_trailer(str(WTB_KIT / "Trailers" / "Demo Trailer.mp4"), OUT / "wtb" / "trailer.mp4", 4)
+        src = str(WTB_RELEASE_TRAILER) if WTB_RELEASE_TRAILER.exists() else str(WTB_KIT / "Trailers" / "Demo Trailer.mp4")
+        encode_trailer(src, OUT / "wtb" / "trailer.mp4", 4)
 
 
 def trimmed_logo(source: Path, target: Path, width: int) -> None:
