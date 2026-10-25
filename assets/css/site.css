@@ -12,6 +12,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Work Sans";
+  src: url("../fonts/work-sans-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   color-scheme: dark;
   --signal: #ec6a78;
@@ -133,7 +141,17 @@ h3 {
   text-wrap: balance;
 }
 
-p {
+h1 i,
+h2 i,
+h3 i {
+  color: var(--accent);
+  font-style: normal;
+}
+
+p,
+li,
+dd,
+blockquote {
   text-wrap: pretty;
 }
 
@@ -325,11 +343,6 @@ main {
   line-height: 0.95;
 }
 
-.intro h1 em {
-  color: var(--signal);
-  font-style: normal;
-}
-
 .intro p {
   max-width: 34ch;
   color: var(--muted);
@@ -345,6 +358,7 @@ main {
 .card {
   position: relative;
   display: grid;
+  align-content: start;
   gap: 16px;
   text-decoration: none;
   transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease);
@@ -441,6 +455,13 @@ main {
 .card__line {
   color: var(--muted);
   font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.card__status {
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 500;
   line-height: 1.5;
 }
 
@@ -587,17 +608,17 @@ main {
   line-height: 1.1;
 }
 
-.lede em {
-  color: var(--accent);
-  font-style: normal;
-}
-
 .trailer {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--raise);
   aspect-ratio: 16 / 9;
+}
+
+.trailer:has(video:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .trailer video {
@@ -608,7 +629,8 @@ main {
 
 .clips {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 36svh));
+  justify-content: center;
   gap: clamp(16px, 2.4vw, 32px);
   align-items: start;
 }
@@ -1075,7 +1097,7 @@ main {
 .prose {
   display: grid;
   gap: 18px;
-  max-width: 68ch;
+  max-width: 58ch;
 }
 
 .prose h2 {
@@ -1126,6 +1148,7 @@ main {
 
 .site-footer ul {
   display: grid;
+  align-content: start;
   gap: 10px;
   margin: 0;
   padding: 0;
@@ -1445,5 +1468,34 @@ main {
     top: auto;
     bottom: calc(16px + env(safe-area-inset-bottom));
     translate: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    display: grid;
+  }
+
+  .actions .button {
+    justify-content: center;
+    padding-block: 12px;
+    line-height: 1.25;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header .wordmark {
+    font-size: 1.1875rem;
+  }
+
+  .nav a {
+    padding-inline: 7px;
+  }
+
+  .actions .button {
+    padding-inline: 12px;
+    font-size: 0.9375rem;
   }
 }

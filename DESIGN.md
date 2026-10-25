@@ -16,19 +16,23 @@ own accent and a background tinted to match.
 | `--accent` | per page | red, What the Buck?! `#84d48c`, Fish Don't Return `#77d9d5` |
 
 Semi-transparent darks are `color-mix` of `--bg` so they pick up the tint. Media corners
-18px, buttons rounded 10px, nav chips 8px.
+18px, buttons rounded 10px, nav chips 8px. Button rows stack full width on phones.
 
 ## Type
 
 Big Shoulders Display for headings and the wordmark (weight 800, 700 for large leads), Work Sans
-for text (17px, line height 1.6). Both OFL, latin subset, in assets/fonts.
+for text (17px, line height 1.6), with its italic for quotes. All OFL, latin subset, in assets/fonts.
+The display face has no italic, so `<i>` in a heading is set upright in the accent. Running text
+stays under about 75 characters a line.
 
 ## Media
 
 Game cards are 9:16, three in a row next to the headline and a swipeable row on phones.
+Under its line each card gives the game's release status in its accent.
 Cards show the first frame of their clip and play it on hover, or for 5 seconds when
 scrolled into view on touch screens. Each card has a blurred copy of its poster behind
-it. With reduced motion nothing plays by itself.
+it. With reduced motion nothing plays by itself. Clip columns are at most 36svh wide, so a
+clip and its caption fit on one screen.
 
 ## Copy
 

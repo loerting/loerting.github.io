@@ -19,7 +19,7 @@ URL_ATTRS = {"href", "src", "poster", "data-src"}
 BANNED_TEXT = {"—": "em-dash", "–": "en-dash", "...": "three dots (use …)"}
 EMAIL = re.compile(r"mailto:|[\w.+-]+@[\w-]+\.[a-z]{2,}", re.I)
 # A download's label next to its link, as "PDF, 6.9 MB" or "ZIP, 10,4 MB".
-DOWNLOAD = re.compile(r'<a href="([^"]+\.(?:pdf|zip))">[^<]*<span>(?:PDF|ZIP), ([\d.,]+) MB</span>')
+DOWNLOAD = re.compile(r'<a href="([^"]+\.(?:pdf|zip|mp4))"[^>]*>[^<]*<span>(?:PDF|ZIP|MP4), ([\d.,]+) MB</span>')
 BANNED_CSS = {"transition: all": "transition: all", "outline: none": "outline: none"}
 
 

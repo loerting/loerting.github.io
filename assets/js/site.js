@@ -14,7 +14,10 @@ const mayAutoplay = () => !reducedMotion.matches && !saveData;
 
 function setUpMail() {
   const address = MAIL.map((part) => [...part].reverse().join("")).reverse().join("@");
-  for (const link of document.querySelectorAll("a[data-mail]")) link.href = `mailto:${address}`;
+  for (const link of document.querySelectorAll("a[data-mail]")) {
+    const subject = link.dataset.mail ? `?subject=${encodeURIComponent(link.dataset.mail)}` : "";
+    link.href = `mailto:${address}${subject}`;
+  }
   for (const text of document.querySelectorAll("[data-mail-show]")) text.textContent = address;
 }
 
@@ -69,10 +72,13 @@ function setUpClips() {
   for (const clip of clips) {
     const video = clip.querySelector("video");
     const toggle = clip.querySelector(".clip__toggle");
+    const heading = clip.querySelector("h3") ?? clip.closest("section")?.querySelector("h2");
+    const label = (action) => (heading ? `${action}: ${heading.textContent}` : action);
+    toggle.setAttribute("aria-label", label(TEXT.play));
     video.addEventListener("playing", () => clip.classList.add("is-live", "is-playing"));
     video.addEventListener("pause", () => clip.classList.remove("is-playing"));
-    video.addEventListener("play", () => toggle.setAttribute("aria-label", TEXT.pause));
-    video.addEventListener("pause", () => toggle.setAttribute("aria-label", TEXT.play));
+    video.addEventListener("play", () => toggle.setAttribute("aria-label", label(TEXT.pause)));
+    video.addEventListener("pause", () => toggle.setAttribute("aria-label", label(TEXT.play)));
     toggle.addEventListener("click", () => {
       if (video.paused) {
         pausedByUser.delete(clip);

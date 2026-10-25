@@ -59,7 +59,7 @@ class Clip:
 
 
 CLIPS = (
-    Clip("vena/card", VENA_CLIPS / "main_menu_map.mp4", 0.0, 8.0, CARD_SIZE, 60, 30),
+    Clip("vena/card", VENA_CLIPS / "main_menu_map.mp4", 0.0, 8.0, CARD_SIZE, 30, 32),
     Clip("vena/clip-place", VENA_CLIPS / "satisfying_placements.mp4", 0.0, 3.5, CLIP_SIZE, 30, 28),
     Clip("vena/clip-dice", VENA_CLIPS / "roll_dice_shop.mp4", 0.0, 5.0, CLIP_SIZE, 30, 28),
     Clip("vena/clip-perk", VENA_CLIPS / "perk_selection.mp4", 0.6, 2.4, CLIP_SIZE, 30, 28),
@@ -67,7 +67,7 @@ CLIPS = (
     Clip("fdr/clip-program", FDR_CLIPS / "program_coins.mp4", 0.0, 11.0, CLIP_SIZE, 30, 28),
     Clip("fdr/clip-lionfish", FDR_CLIPS / "lionfish_ram.mp4", 0.0, 14.0, CLIP_SIZE, 30, 28),
     Clip("fdr/clip-veil", FDR_CLIPS / "veil_descent.mp4", 0.0, 11.0, CLIP_SIZE, 30, 28),
-    Clip("wtb/card", WTB_TRAILER, 86.5, 8.0, CARD_SIZE, 60, 30, 875),
+    Clip("wtb/card", WTB_TRAILER, 86.5, 8.0, CARD_SIZE, 30, 32, 875),
     Clip("wtb/clip-upgrades", WTB_TRAILER, 37.8, 5.5, CLIP_SIZE, 30, 28, 480),
     Clip("wtb/clip-smash", WTB_TRAILER, 62.0, 6.0, CLIP_SIZE, 30, 28, 875),
     Clip("wtb/clip-prestige", WTB_TRAILER, 26.8, 7.0, CLIP_SIZE, 30, 28, 680),
