@@ -256,7 +256,7 @@ PAIRS = [
     (">Out 9 November · Free demo<", ">Ab 9. November · Kostenlose Demo<"),
     ("Wishlist Fish Don’t Return on Steam to hear when there is a demo and when it comes out.",
      "Setz Fish Don’t Return auf deine Steam-Wunschliste, dann erfährst du, wann es eine Demo gibt und wann das Spiel erscheint."),
-    ("<span>PDF, 6.9 MB</span>", "<span>PDF, 6,9 MB</span>"),
+    ("<span>PDF, 7.3 MB</span>", "<span>PDF, 7,3 MB</span>"),
     ('fish-dont-return-press-kit.pdf"', 'fish-dont-return-press-kit-de.pdf"'),
     (">Logos and screenshots ", ">Logos und Screenshots "),
 
@@ -277,7 +277,7 @@ PAIRS = [
     (">Logos, art and screenshots ", ">Logos, Artwork und Screenshots "),
     ("<span>ZIP, 9.1 MB</span>", "<span>ZIP, 9,1 MB</span>"),
     ("<span>ZIP, 4.4 MB</span>", "<span>ZIP, 4,4 MB</span>"),
-    ("<span>ZIP, 10.4 MB</span>", "<span>ZIP, 10,4 MB</span>"),
+    ("<span>ZIP, 10.5 MB</span>", "<span>ZIP, 10,5 MB</span>"),
     ("<span>MP4, 25.7 MB</span>", "<span>MP4, 25,7 MB</span>"),
     ("<span>MP4, 21.0 MB</span>", "<span>MP4, 21,0 MB</span>"),
     (">Request a review key ", ">Review-Key anfragen "),
