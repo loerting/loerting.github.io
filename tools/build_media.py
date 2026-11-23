@@ -289,6 +289,7 @@ def build_press(force: bool) -> None:
         "fish-dont-return-press-assets.zip": [
             (FDR_MARKETING / "steam/images/library/library_logo_1280.png", "logo/fish-dont-return-logo.png"),
             (FDR_MARKETING / "steam/images/library/library_capsule_600x900.png", "art/library-capsule-600x900.png"),
+            (FDR_MARKETING / "steam/images/store/vertical_capsule_748x896.png", "art/vertical-capsule-748x896.png"),
             (FDR_MARKETING / "steam/images/store/main_capsule_1232x706.png", "art/main-capsule-1232x706.png"),
             (FDR_MARKETING / "steam/images/store/header_capsule_920x430.png", "art/header-920x430.png"),
             (FDR_MARKETING / "steam/images/library/library_hero_3840x1240.png", "art/library-hero-3840x1240.png"),
