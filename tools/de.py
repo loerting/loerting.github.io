@@ -75,6 +75,8 @@ PAIRS = [
      "Vena begann als Prototyp für einen Game Jam und hat den Godot Wild Jam #85 gewonnen. Das Spiel ist am 9. November 2026 auf Steam und Google Play erschienen, am selben Tag wie What the Buck?!, ein Incremental Game, in dem du Geld zerstörst und das du mit einer kostenlosen Demo auf Steam ausprobieren kannst. Als Nächstes kommt Fish Don’t Return, ein Programmierspiel im Marianengraben."),
     ("For press, review keys or anything else, ", "Für Presseanfragen, Review-Keys oder alles andere "),
     (">send an email<", ">schreib eine E-Mail<"),
+    ("If you ask for a review key, please write from the email address listed on your site or channel, or include other proof that you run it.",
+     "Wenn du einen Review-Key anfragst, schreib bitte von der E-Mail-Adresse, die auf deiner Seite oder deinem Kanal angegeben ist, oder weise anders nach, dass du die Seite oder den Kanal betreibst."),
 
     ("Vena · An automation roguelike · Loerting Games", "Vena · Ein Automation-Roguelike · Loerting Games"),
     ("Vena is an automation roguelike where every run fits in one sitting. Place hexagonal tiles, roll dice in the shop and survive. Out now on Steam and Google Play.",
