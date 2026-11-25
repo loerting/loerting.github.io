@@ -44,14 +44,17 @@
 
 .theme-vena {
   --accent: #ec6a78;
+  --tint: #130b0f;
 }
 
 .theme-fdr {
   --accent: #77d9d5;
+  --tint: #060c11;
 }
 
 .theme-wtb {
   --accent: #84d48c;
+  --tint: #08100b;
 }
 
 body.theme-vena {
@@ -213,6 +216,37 @@ blockquote {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  transition: background-color var(--fast) ease, border-color var(--fast) ease;
+}
+
+/* At the top of a page the header lets the art show through; a soft shade keeps the links readable. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: calc(var(--header-offset) + 72px);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 85%, transparent), transparent);
+  opacity: 0;
+  transition: opacity var(--fast) ease;
+  pointer-events: none;
+}
+
+.site-header.is-top {
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
+.site-header.is-top::before {
+  opacity: 1;
+}
+
+.site-header.is-top .wordmark,
+.site-header.is-top .nav a:not(:hover, [aria-current="page"]) {
+  color: var(--text);
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.6);
 }
 
 .site-header .wrap {
@@ -322,173 +356,270 @@ main {
   flex: none;
 }
 
-.stage {
-  display: grid;
-  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 88px);
-  min-height: 100svh;
-  padding-top: calc(var(--header-offset) + clamp(24px, 4vh, 48px));
-  padding-bottom: clamp(24px, 5vh, 56px);
-}
-
-.intro {
-  display: grid;
-  gap: 24px;
-  padding-bottom: 8px;
-}
-
-.intro h1 {
-  font-size: clamp(2.25rem, 1rem + 3vw, 4rem);
-  line-height: 0.95;
-}
-
-.intro p {
-  max-width: 34ch;
-  color: var(--muted);
-  font-size: 1.125rem;
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.6vw, 24px);
-}
-
-.card {
+/* Home: one game at a time in its key art, with a switcher along the bottom.
+   A new game is one more slide and one more pick. Without JavaScript, and on phones,
+   the slides simply stack. */
+.slide {
   position: relative;
   display: grid;
-  align-content: start;
-  gap: 16px;
-  text-decoration: none;
-  transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease);
-}
-
-.card__ambient {
-  position: absolute;
-  inset: 2% -3% auto;
-  z-index: -1;
-  aspect-ratio: 9 / 16;
-  opacity: 0.5;
-  filter: blur(56px) saturate(1.6) brightness(1.35);
-  transition: opacity var(--slow) var(--ease);
-  pointer-events: none;
-}
-
-.card__ambient img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card:hover .card__ambient,
-.card:focus-visible .card__ambient,
-.card.is-live .card__ambient {
-  opacity: 0.85;
-}
-
-.card__media {
-  position: relative;
-  aspect-ratio: 9 / 16;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--raise);
+  align-items: end;
+  min-height: max(640px, 100svh);
   isolation: isolate;
-  box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.9);
+  background: var(--tint);
 }
 
-.card__poster,
-.card__poster img,
-.card__video {
+.slide__art,
+.slide__art img {
   position: absolute;
   inset: 0;
+  z-index: -2;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.card__poster img {
-  transform: scale(1.04);
-  transition: transform 1.2s var(--ease);
+.slide__art img {
+  object-position: var(--focus, 60%) center;
 }
 
-.card__video {
+.slide__video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
-  transition: opacity var(--slow) var(--ease);
+  transition: opacity 1.2s var(--ease);
 }
 
-.card.is-live .card__video {
+.slide.is-playing .slide__video {
   opacity: 1;
 }
 
-.card__shade {
+.slide::after {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 38%, transparent 70%, color-mix(in srgb, var(--bg) 60%, transparent) 100%);
+  z-index: -1;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--tint) 90%, transparent) 0%, color-mix(in srgb, var(--tint) 55%, transparent) 40%, transparent 70%),
+    linear-gradient(0deg, color-mix(in srgb, var(--tint) 96%, transparent) 0%, color-mix(in srgb, var(--tint) 45%, transparent) 30%, transparent 55%);
 }
 
-.card__title {
-  position: absolute;
-  inset: clamp(20px, 2.4vw, 32px) clamp(20px, 2.4vw, 32px) auto;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-}
-
-.card__title picture {
-  width: min(78%, 360px);
-}
-
-.card__title img {
-  width: 100%;
-  filter: drop-shadow(0 8px 24px rgb(0 0 0 / 0.55));
-  transition: transform var(--slow) var(--ease);
-}
-
-.card__body {
+.slide__content {
   display: grid;
-  gap: 4px;
-  padding-inline: 4px;
+  justify-items: start;
+  gap: 24px;
+  padding-block: calc(var(--header-offset) + 32px) clamp(40px, 8vh, 88px);
 }
 
-.card__line {
+.slide__logo a {
+  display: block;
+}
+
+.slide__logo img {
+  width: clamp(260px, 32vw, 520px);
+  filter: drop-shadow(0 10px 30px rgb(0 0 0 / 0.6));
+}
+
+.slide__lede {
+  max-width: 40ch;
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  line-height: 1.5;
+}
+
+.slide__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
   color: var(--muted);
   font-size: 0.9375rem;
-  line-height: 1.5;
 }
 
-.card__status {
+.slide__meta strong {
   color: var(--accent);
-  font-size: 0.875rem;
   font-weight: 500;
-  line-height: 1.5;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .cards:has(.card:hover) .card:not(:hover) {
-    opacity: 0.5;
+.showcase__picker {
+  display: none;
+}
+
+@media (min-width: 721px) {
+  .showcase.is-ready {
+    position: relative;
   }
 
-  .card:hover {
-    transform: translateY(-6px);
+  .showcase.is-ready .showcase__slides {
+    display: grid;
   }
 
-  .card:hover .card__poster img {
-    transform: scale(1);
+  .showcase.is-ready .slide {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.9s var(--ease), visibility 0s linear 0.9s;
   }
 
-  .card:hover .card__title img {
-    transform: translateY(-4px) scale(1.02);
+  .showcase.is-ready .slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.9s var(--ease), visibility 0s;
   }
+
+  .showcase.is-ready .slide__content {
+    padding-bottom: calc(clamp(24px, 4vh, 44px) + 132px);
+  }
+
+  .showcase.is-ready .slide__content > * {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease);
+  }
+
+  .showcase.is-ready .slide.is-active .slide__content > * {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.2s;
+  }
+
+  .showcase.is-ready .showcase__picker {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2.4vw, 40px);
+    padding-bottom: clamp(24px, 4vh, 44px);
+  }
+}
+
+.showcase__picks {
+  display: flex;
+  flex: 1;
+  gap: clamp(16px, 2.4vw, 40px);
+}
+
+.pick {
+  display: grid;
+  flex: 1 1 0;
+  justify-items: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--fast) ease;
+}
+
+.pick:hover,
+.pick[aria-selected="true"] {
+  opacity: 1;
+}
+
+.pick:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+  border-radius: 4px;
+}
+
+.pick__bar {
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.22);
+}
+
+.pick__bar::after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.pick[aria-selected="true"] .pick__bar::after {
+  transform: scaleX(1);
+}
+
+.showcase:not(.is-stopped) .pick[aria-selected="true"] .pick__bar::after {
+  animation: pick-fill var(--dwell, 8s) linear;
+}
+
+.showcase__picker:hover .pick__bar::after,
+.showcase:focus-within .pick__bar::after {
+  animation-play-state: paused;
+}
+
+@keyframes pick-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.pick__name {
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 0.85rem + 1vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pick__status {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.showcase__pause {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 8px;
+  background: rgb(0 0 0 / 0.3);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color var(--fast) ease, background-color var(--fast) ease;
+}
+
+.showcase__pause[hidden] {
+  display: none;
+}
+
+.showcase__pause:hover {
+  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(0 0 0 / 0.5);
+}
+
+.showcase__pause svg {
+  width: 16px;
+  height: 16px;
 }
 
 .about {
+  padding-block: clamp(72px, 10vw, 140px);
+}
+
+.about__inner {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(32px, 5vw, 88px);
-  padding-block: clamp(72px, 12vw, 160px);
-  border-top: 1px solid var(--line);
 }
 
 .about h2 {
@@ -1292,16 +1423,10 @@ main {
 }
 
 @media (max-width: 960px) {
-  .stage,
-  .about,
+  .about__inner,
   .facts,
   .split {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  .stage {
-    align-items: start;
-    min-height: 0;
   }
 
   .press-game {
@@ -1332,10 +1457,6 @@ main {
     gap: 12px;
   }
 
-  .stage {
-    padding-top: calc(var(--header-offset) + 48px);
-  }
-
   .wordmark {
     font-size: 1.3125rem;
   }
@@ -1353,37 +1474,20 @@ main {
     margin-left: 2px;
   }
 
-  .cards {
-    grid-template-columns: repeat(3, 78%);
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    margin-inline: calc(-1 * var(--gutter));
-    padding-inline: var(--gutter);
-    scrollbar-width: none;
-  }
-
-  .cards::-webkit-scrollbar {
-    display: none;
-  }
-
-  .card {
-    scroll-snap-align: start;
-  }
-
-  .cards {
-    padding-block: 40px;
-    margin-block: -40px;
-  }
-
-  .card__ambient {
-    inset: 3% 4% auto;
-    filter: blur(28px) saturate(1.6) brightness(1.35);
-  }
-
   .hero {
     min-height: 88svh;
+  }
+
+  .slide {
+    min-height: max(560px, 88svh);
+  }
+
+  .slide__art img {
+    object-position: var(--focus-mobile, 70%) center;
+  }
+
+  .slide::after {
+    background: linear-gradient(0deg, color-mix(in srgb, var(--tint) 96%, transparent) 0%, color-mix(in srgb, var(--tint) 72%, transparent) 45%, transparent 78%);
   }
 
   .hero__art img {

@@ -31,6 +31,9 @@ WTB_KIT_ZIP = Path(os.environ.get(
     "WTB_KIT_ZIP", HOME / "Downloads/Press Kit-20260928T155139Z-1-001.zip"))
 WTB_KIT = CACHE / "wtb_kit" / "Press Kit"
 WTB_TRAILER = WTB_KIT / "Trailers" / "Gameplay Trailer.mp4"
+FDR_TRAILER = Path(os.environ.get(
+    "FDR_TRAILER", "/mnt/nvme/home/fish-dont-return-clips/trailers/TR01/TR01.mp4"))
+VENA_TRAILER = CACHE / "vena_trailer_source.mp4"
 
 VENA_APP = 4165740
 FDR_APP = 5270480
@@ -71,6 +74,23 @@ CLIPS = (
     Clip("wtb/clip-upgrades", WTB_TRAILER, 37.8, 5.5, CLIP_SIZE, 30, 28, 480),
     Clip("wtb/clip-smash", WTB_TRAILER, 62.0, 6.0, CLIP_SIZE, 30, 28, 875),
     Clip("wtb/clip-prestige", WTB_TRAILER, 26.8, 7.0, CLIP_SIZE, 30, 28, 680),
+)
+
+
+@dataclass(frozen=True)
+class Reel:
+    """A muted gameplay loop behind a game on the home page, cut from text-free stretches of a trailer."""
+    name: str
+    source: Path
+    cuts: tuple[tuple[float, float], ...]
+    crop: str | None = None
+
+
+REELS = (
+    # Most of Vena's trailer is letterboxed to 1920x822, so every cut keeps only that band.
+    Reel("vena/reel", VENA_TRAILER, ((0.6, 2.3), (54.0, 1.4), (65.0, 4.3)), "1920:822:0:130"),
+    Reel("wtb/reel", WTB_TRAILER, ((60.0, 4.0), (28.5, 3.0), (86.0, 5.0))),
+    Reel("fdr/reel", FDR_TRAILER, ((4.5, 3.5), (10.0, 3.0), (38.0, 3.0), (72.0, 3.0))),
 )
 
 
@@ -180,6 +200,31 @@ def build_trailers(force: bool) -> None:
     if fresh(OUT / "wtb" / "trailer.mp4", force):
         src = str(WTB_RELEASE_TRAILER) if WTB_RELEASE_TRAILER.exists() else str(WTB_KIT / "Trailers" / "Demo Trailer.mp4")
         encode_trailer(src, OUT / "wtb" / "trailer.mp4", 4)
+
+
+def encode_reel(reel: Reel, force: bool) -> None:
+    target = OUT / f"{reel.name}.mp4"
+    if not fresh(target, force):
+        return
+    crop = f"crop={reel.crop}," if reel.crop else ""
+    parts = "".join(
+        f"[0:v]trim=start={start}:duration={length},setpts=PTS-STARTPTS,"
+        f"{crop}scale=1920:-2:flags=lanczos,fps=30[v{i}];"
+        for i, (start, length) in enumerate(reel.cuts))
+    joined = "".join(f"[v{i}]" for i in range(len(reel.cuts)))
+    graph = f"{parts}{joined}concat=n={len(reel.cuts)}:v=1:a=0,format=yuv420p[out]"
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(reel.source), "-filter_complex", graph,
+         "-map", "[out]", "-an", "-c:v", "libx264", "-preset", "slower", "-tune", "animation",
+         "-crf", "30", "-maxrate", "3000k", "-bufsize", "6000k", "-profile:v", "high",
+         "-movflags", "+faststart", "-threads", "6", str(target)])
+
+
+def build_reels(force: bool) -> None:
+    if not VENA_TRAILER.exists():
+        run(["ffmpeg", "-v", "error", "-y", "-i", steam_details(VENA_APP)["movies"][0]["hls_h264"],
+             "-map", "0:v:0", "-c", "copy", str(VENA_TRAILER)])
+    for reel in REELS:
+        encode_reel(reel, force)
 
 
 def trimmed_logo(source: Path, target: Path, width: int) -> None:
@@ -327,6 +372,7 @@ def main() -> int:
         encode_clip(clip, args.force)
     build_images(args.force)
     build_trailers(args.force)
+    build_reels(args.force)
     build_press(args.force)
     return 0
 

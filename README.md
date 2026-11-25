@@ -39,9 +39,11 @@ uses "du", like Vena's German translation.
 and the What the Buck?! press kit zip (its trailer is cut into the vertical clips).
 Fish Don't Return's logo, capsules, screenshots and press downloads all come from its
 marketing folder, which is ahead of its Steam page; only its hero is read from Steam.
-Paths can be overridden with `VENA_CLIPS`, `FDR_CLIPS`, `FDR_MARKETING`,
-`VENA_LOGOS_ZIP` and `WTB_KIT_ZIP`. Which clip plays where is the `CLIPS` table at the
-top.
+The home page's gameplay loops are cut from the trailers: Vena's from Steam, What the Buck?!'s
+gameplay trailer from its press kit and Fish Don't Return's first trailer (TR01). Paths can be
+overridden with `VENA_CLIPS`, `FDR_CLIPS`, `FDR_MARKETING`, `FDR_TRAILER`, `VENA_LOGOS_ZIP`
+and `WTB_KIT_ZIP`. Which clip plays where is the `CLIPS` table at the top, and which
+stretches make up each loop is the `REELS` table under it.
 
 ## Going live on GitHub Pages
 

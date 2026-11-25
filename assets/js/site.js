@@ -1,12 +1,10 @@
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
 const saveData = navigator.connection?.saveData === true;
 const IN_VIEW = 0.6;
-const TOUCH_PREVIEW_MS = 5000;
 const MAIL = ["moc.liamg", "lk80drahnoel"];
 const STRINGS = {
-  en: { play: "Play clip", pause: "Pause clip", count: (i, n) => `${i} of ${n}` },
-  de: { play: "Clip abspielen", pause: "Clip anhalten", count: (i, n) => `${i} von ${n}` },
+  en: { play: "Play clip", pause: "Pause clip", count: (i, n) => `${i} of ${n}`, showPlay: "Play the slideshow", showPause: "Pause the slideshow" },
+  de: { play: "Clip abspielen", pause: "Clip anhalten", count: (i, n) => `${i} von ${n}`, showPlay: "Diashow abspielen", showPause: "Diashow anhalten" },
 };
 const TEXT = STRINGS[document.documentElement.lang] ?? STRINGS.en;
 
@@ -34,35 +32,6 @@ function watchVisibility(items, onEnter, onLeave) {
     }
   }, { threshold: [0, IN_VIEW] });
   for (const item of items) observer.observe(item);
-}
-
-function setUpCards() {
-  const cards = [...document.querySelectorAll("[data-card]")];
-  for (const card of cards) {
-    const video = card.querySelector("video");
-    video.addEventListener("playing", () => card.classList.add("is-live"));
-    video.addEventListener("pause", () => card.classList.remove("is-live"));
-    card.addEventListener("pointerenter", () => finePointer.matches && mayAutoplay() && play(video));
-    card.addEventListener("pointerleave", () => finePointer.matches && video.pause());
-    card.addEventListener("focus", () => mayAutoplay() && play(video));
-    card.addEventListener("blur", () => video.pause());
-  }
-
-  if (finePointer.matches) return;
-  const timers = new WeakMap();
-  watchVisibility(
-    cards,
-    (card) => {
-      if (!mayAutoplay()) return;
-      const video = card.querySelector("video");
-      play(video);
-      timers.set(card, setTimeout(() => video.pause(), TOUCH_PREVIEW_MS));
-    },
-    (card) => {
-      clearTimeout(timers.get(card));
-      card.querySelector("video").pause();
-    },
-  );
 }
 
 function setUpClips() {
@@ -134,7 +103,90 @@ function setUpLightbox() {
   });
 }
 
+function setUpShowcase() {
+  const showcase = document.querySelector("[data-showcase]");
+  if (!showcase) return;
+  const slides = [...showcase.querySelectorAll("[data-slide]")];
+  const picks = [...showcase.querySelectorAll("[data-pick]")];
+  const pause = showcase.querySelector("[data-pause]");
+  const icon = pause.querySelector("use");
+  const videos = slides.map((slide) => slide.querySelector("video"));
+  const wide = matchMedia("(min-width: 721px)");
+  let index = 0;
+
+  videos.forEach((video, i) => video.addEventListener("playing", () => slides[i].classList.add("is-playing")));
+  const playFromStart = (video) => {
+    video.currentTime = 0;
+    play(video);
+  };
+
+  const stopped = () => showcase.classList.contains("is-stopped");
+  const setStopped = (stop) => {
+    showcase.classList.toggle("is-stopped", stop);
+    icon.setAttribute("href", icon.getAttribute("href").replace(/#.*/, stop ? "#play" : "#pause"));
+    pause.setAttribute("aria-label", stop ? TEXT.showPlay : TEXT.showPause);
+  };
+  const show = (next) => {
+    index = (next + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("is-active", i === index);
+      slide.inert = wide.matches && i !== index;
+      if (!wide.matches) return;
+      if (i === index && mayAutoplay()) playFromStart(videos[i]);
+      else videos[i].pause();
+    });
+    picks.forEach((pick, i) => {
+      pick.setAttribute("aria-selected", String(i === index));
+      pick.tabIndex = i === index ? 0 : -1;
+    });
+  };
+
+  picks.forEach((pick, i) => {
+    pick.addEventListener("click", () => {
+      setStopped(true);
+      show(i);
+    });
+    pick.addEventListener("keydown", (event) => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+      if (!step) return;
+      event.preventDefault();
+      setStopped(true);
+      show(index + step);
+      picks[index].focus();
+    });
+    pick.querySelector(".pick__bar").addEventListener("animationend", () => {
+      if (!stopped()) show(index + 1);
+    });
+  });
+  pause.addEventListener("click", () => {
+    const stop = !stopped();
+    setStopped(stop);
+    if (stop) videos[index].pause();
+    else play(videos[index]);
+  });
+  wide.addEventListener("change", () => show(index));
+  watchVisibility(
+    slides,
+    (slide) => !wide.matches && mayAutoplay() && play(slide.querySelector("video")),
+    (slide) => !wide.matches && slide.querySelector("video").pause(),
+  );
+
+  pause.hidden = !mayAutoplay();
+  setStopped(!mayAutoplay());
+  showcase.classList.add("is-ready");
+  show(0);
+}
+
+function setUpHeader() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const update = () => header.classList.toggle("is-top", window.scrollY < 8);
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+}
+
 setUpMail();
-setUpCards();
+setUpHeader();
+setUpShowcase();
 setUpClips();
 setUpLightbox();

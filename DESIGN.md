@@ -27,12 +27,22 @@ stays under about 75 characters a line.
 
 ## Media
 
-Game cards are 9:16, three in a row next to the headline and a swipeable row on phones.
-Under its line each card gives the game's release status in its accent.
-Cards show the first frame of their clip and play it on hover, or for 5 seconds when
-scrolled into view on touch screens. Each card has a blurred copy of its poster behind
-it. With reduced motion nothing plays by itself. Clip columns are at most 36svh wide, so a
-clip and its caption fit on one screen.
+The home page shows one game at a time, full screen: a muted gameplay loop of about 8 to 12
+seconds, cut from text-free stretches of the game's trailer, over its Steam key art (the
+same hero art as its game page), which shows until the loop plays and whenever it can't.
+With it come the logo, one line, a store button and a link to the game's page. A switcher
+along the bottom names every game with its status and a progress line; it moves on after one
+run of the game's loop, pauses while the pointer is on it or something inside has focus,
+stops for good once a game is picked, and has a pause button. With reduced motion or data
+saving it does not move. Without JavaScript, and on phones, the games stack, one per screen.
+A new game is one more slide and one more pick.
+
+Game pages show their 9:16 clips in their own sections. A clip plays while it is in view and
+has its own play and pause button; with reduced motion nothing plays by itself. Clip columns
+are at most 36svh wide, so a clip and its caption fit on one screen.
+
+At the top of every page the header is see-through over the art, with a soft shade behind
+the links; it turns solid as soon as the page scrolls.
 
 ## Copy
 

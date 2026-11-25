@@ -71,7 +71,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header is-top">
     <div class="wrap">
       <a class="wordmark" href="./" aria-current="page">Loerting Games</a>
       <nav aria-label="Main">
@@ -86,102 +86,119 @@
   </header>
 
   <main id="main">
-    <section class="stage wrap" id="games" aria-labelledby="stage-title">
-      <div class="intro">
-        <h1 id="stage-title">Games where you build something and watch it run.</h1>
-        <p>Independent games from Tyrol, Austria, by Alexander and Leonhard Kohl-Lörting.</p>
+    <section class="showcase" id="games" aria-labelledby="stage-title" data-showcase>
+      <h1 class="visually-hidden" id="stage-title">Loerting Games</h1>
+      <div class="showcase__slides">
+      <article class="slide theme-vena is-active" id="slide-vena" aria-labelledby="slide-vena-title" data-slide>
+        <picture class="slide__art">
+          <source type="image/avif" srcset="assets/media/vena/hero-1280.avif 1280w, assets/media/vena/hero-1920.avif 1920w, assets/media/vena/hero-2880.avif 2880w" sizes="max(100vw, 285svh)">
+          <img src="assets/media/vena/hero-1920.jpg" srcset="assets/media/vena/hero-1280.jpg 1280w, assets/media/vena/hero-1920.jpg 1920w, assets/media/vena/hero-2880.jpg 2880w" sizes="max(100vw, 285svh)" alt="" width="1920" height="620" fetchpriority="high" style="--focus: 78%">
+        </picture>
+        <video class="slide__video" data-src="assets/media/vena/reel.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <div class="slide__content wrap">
+          <h2 class="slide__logo" id="slide-vena-title">
+            <a href="vena/"><picture><source srcset="assets/media/vena/logo.avif" type="image/avif"><img src="assets/media/vena/logo.webp" alt="Vena" width="960" height="457" style="view-transition-name: vena-logo"></picture></a>
+          </h2>
+          <p class="slide__lede">An automation roguelike where every run fits in one sitting.</p>
+          <div class="actions">
+            <a class="button button--primary" href="https://store.steampowered.com/app/4165740/Vena/">
+              <svg aria-hidden="true"><use href="assets/icons.svg#steam"/></svg>Buy on Steam
+            </a>
+            <a class="button button--ghost" href="vena/">Learn more<span class="visually-hidden"> about Vena</span></a>
+          </div>
+          <p class="slide__meta">
+            <strong>Out now</strong>
+            <span>Windows, macOS, Linux, Steam Deck and Android</span>
+          </p>
+        </div>
+      </article>
+      <article class="slide theme-wtb" id="slide-wtb" aria-labelledby="slide-wtb-title" data-slide>
+        <picture class="slide__art">
+          <source type="image/avif" srcset="assets/media/wtb/hero-1280.avif 1280w, assets/media/wtb/hero-1920.avif 1920w, assets/media/wtb/hero-2880.avif 2880w" sizes="max(100vw, 285svh)">
+          <img src="assets/media/wtb/hero-1920.jpg" srcset="assets/media/wtb/hero-1280.jpg 1280w, assets/media/wtb/hero-1920.jpg 1920w, assets/media/wtb/hero-2880.jpg 2880w" sizes="max(100vw, 285svh)" alt="" width="1920" height="620" loading="lazy" style="--focus: 60%">
+        </picture>
+        <video class="slide__video" data-src="assets/media/wtb/reel.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <div class="slide__content wrap">
+          <h2 class="slide__logo" id="slide-wtb-title">
+            <a href="what-the-buck/"><picture><source srcset="assets/media/wtb/logo.avif" type="image/avif"><img src="assets/media/wtb/logo.webp" alt="What the Buck?!" width="960" height="510" style="view-transition-name: wtb-logo"></picture></a>
+          </h2>
+          <p class="slide__lede">An incremental game about destroying money.</p>
+          <div class="actions">
+            <a class="button button--primary" href="https://store.steampowered.com/app/4832970/What_the_Buck/">
+              <svg aria-hidden="true"><use href="assets/icons.svg#steam"/></svg>Buy on Steam
+            </a>
+            <a class="button button--ghost" href="what-the-buck/">Learn more<span class="visually-hidden"> about What the Buck?!</span></a>
+          </div>
+          <p class="slide__meta">
+            <strong>Out now · Free demo</strong>
+            <span>Windows, macOS, Linux and Android</span>
+          </p>
+        </div>
+      </article>
+      <article class="slide theme-fdr" id="slide-fdr" aria-labelledby="slide-fdr-title" data-slide>
+        <picture class="slide__art">
+          <source type="image/avif" srcset="assets/media/fdr/hero-1280.avif 1280w, assets/media/fdr/hero-1920.avif 1920w, assets/media/fdr/hero-2880.avif 2880w" sizes="max(100vw, 285svh)">
+          <img src="assets/media/fdr/hero-1920.jpg" srcset="assets/media/fdr/hero-1280.jpg 1280w, assets/media/fdr/hero-1920.jpg 1920w, assets/media/fdr/hero-2880.jpg 2880w" sizes="max(100vw, 285svh)" alt="" width="1920" height="620" loading="lazy" style="--focus: 62%">
+        </picture>
+        <video class="slide__video" data-src="assets/media/fdr/reel.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <div class="slide__content wrap">
+          <h2 class="slide__logo" id="slide-fdr-title">
+            <a href="fish-dont-return/"><picture><source srcset="assets/media/fdr/logo.avif" type="image/avif"><img src="assets/media/fdr/logo.webp" alt="Fish Don't Return" width="960" height="622" style="view-transition-name: fdr-logo"></picture></a>
+          </h2>
+          <p class="slide__lede">Program fish to explore the deepest trench on Earth.</p>
+          <div class="actions">
+            <a class="button button--primary" href="https://store.steampowered.com/app/5270480/Fish_Dont_Return/">
+              <svg aria-hidden="true"><use href="assets/icons.svg#steam"/></svg>Wishlist on Steam
+            </a>
+            <a class="button button--ghost" href="fish-dont-return/">Learn more<span class="visually-hidden"> about Fish Don’t Return</span></a>
+          </div>
+          <p class="slide__meta">
+            <strong>In development</strong>
+            <span>Windows, macOS, Linux and Steam Deck</span>
+          </p>
+        </div>
+      </article>
       </div>
-
-      <div class="cards">
-        <a class="card theme-vena" href="vena/" data-card>
-          <div class="card__ambient" aria-hidden="true">
-            <picture>
-              <source srcset="assets/media/vena/card.avif" type="image/avif">
-              <img src="assets/media/vena/card.jpg" alt="" width="720" height="1280">
-            </picture>
-          </div>
-          <div class="card__media">
-            <picture class="card__poster">
-              <source srcset="assets/media/vena/card.avif" type="image/avif">
-              <img src="assets/media/vena/card.jpg" alt="" width="720" height="1280" fetchpriority="high">
-            </picture>
-            <video class="card__video" data-src="assets/media/vena/card.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <div class="card__shade"></div>
-            <h2 class="card__title">
-              <picture><source srcset="assets/media/vena/logo.avif" type="image/avif"><img src="assets/media/vena/logo.webp" alt="Vena" width="960" height="457" style="view-transition-name: vena-logo"></picture>
-            </h2>
-          </div>
-          <div class="card__body">
-            <p class="card__line">An automation roguelike where every run fits in one sitting.</p>
-            <p class="card__status">Out now</p>
-          </div>
-        </a>
-
-        <a class="card theme-wtb" href="what-the-buck/" data-card>
-          <div class="card__ambient" aria-hidden="true">
-            <picture>
-              <source srcset="assets/media/wtb/card.avif" type="image/avif">
-              <img src="assets/media/wtb/card.jpg" alt="" width="720" height="1280">
-            </picture>
-          </div>
-          <div class="card__media">
-            <picture class="card__poster">
-              <source srcset="assets/media/wtb/card.avif" type="image/avif">
-              <img src="assets/media/wtb/card.jpg" alt="" width="720" height="1280" fetchpriority="high">
-            </picture>
-            <video class="card__video" data-src="assets/media/wtb/card.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <div class="card__shade"></div>
-            <h2 class="card__title">
-              <picture><source srcset="assets/media/wtb/logo.avif" type="image/avif"><img src="assets/media/wtb/logo.webp" alt="What the Buck?!" width="960" height="510" style="view-transition-name: wtb-logo"></picture>
-            </h2>
-          </div>
-          <div class="card__body">
-            <p class="card__line">An incremental game about destroying money.</p>
-            <p class="card__status">Out now · Free demo</p>
-          </div>
-        </a>
-
-        <a class="card theme-fdr" href="fish-dont-return/" data-card>
-          <div class="card__ambient" aria-hidden="true">
-            <picture>
-              <source srcset="assets/media/fdr/card.avif" type="image/avif">
-              <img src="assets/media/fdr/card.jpg" alt="" width="720" height="1280">
-            </picture>
-          </div>
-          <div class="card__media">
-            <picture class="card__poster">
-              <source srcset="assets/media/fdr/card.avif" type="image/avif">
-              <img src="assets/media/fdr/card.jpg" alt="" width="720" height="1280" fetchpriority="high">
-            </picture>
-            <video class="card__video" data-src="assets/media/fdr/card.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <div class="card__shade"></div>
-            <h2 class="card__title">
-              <picture><source srcset="assets/media/fdr/logo.avif" type="image/avif"><img src="assets/media/fdr/logo.webp" alt="Fish Don't Return" width="960" height="622" style="view-transition-name: fdr-logo"></picture>
-            </h2>
-          </div>
-          <div class="card__body">
-            <p class="card__line">Program fish to explore the deepest trench on Earth.</p>
-            <p class="card__status">In development</p>
-          </div>
-        </a>
+      <div class="showcase__picker wrap">
+        <div class="showcase__picks" role="tablist" aria-label="Games">
+          <button class="pick theme-vena" type="button" style="--dwell: 8s" role="tab" id="pick-vena" aria-controls="slide-vena" aria-selected="true" data-pick>
+            <span class="pick__bar"></span>
+            <span class="pick__name">Vena</span>
+            <span class="pick__status">Out now</span>
+          </button>
+          <button class="pick theme-wtb" type="button" style="--dwell: 12s" role="tab" id="pick-wtb" aria-controls="slide-wtb" aria-selected="false" data-pick>
+            <span class="pick__bar"></span>
+            <span class="pick__name">What the Buck?!</span>
+            <span class="pick__status">Out now · Free demo</span>
+          </button>
+          <button class="pick theme-fdr" type="button" style="--dwell: 12.5s" role="tab" id="pick-fdr" aria-controls="slide-fdr" aria-selected="false" data-pick>
+            <span class="pick__bar"></span>
+            <span class="pick__name">Fish Don’t Return</span>
+            <span class="pick__status">In development</span>
+          </button>
+        </div>
+        <button class="showcase__pause" type="button" aria-label="Pause the slideshow" data-pause hidden>
+          <svg aria-hidden="true"><use href="assets/icons.svg#pause"/></svg>
+        </button>
       </div>
     </section>
 
-    <section class="about wrap" aria-labelledby="about-title">
-      <h2 id="about-title">About Loerting Games</h2>
-      <div class="about__text">
-        <p><strong>Loerting Games</strong> is the shared name under which Alexander and Leonhard Kohl-Lörting present their games. Each game is developed and published by one of the two alone: What the Buck?! by Alexander, Vena and Fish Don’t Return by Leonhard. Loerting Games itself is not a company or a publisher.</p>
-        <p>Vena started as a game jam prototype that won Godot Wild Jam #85. It came out on Steam and Google Play on 9 November 2026, the same day as What the Buck?!, an incremental game about destroying money that you can try with a free demo on Steam. Fish Don’t Return, a programming game set in the Mariana Trench, comes next.</p>
-        <p>For press, review keys or anything else, <a href="press/#contact" data-mail>send an email</a>.</p>
-        <p>If you ask for a review key, please write from the email address listed on your site or channel, or include other proof that you run it.</p>
-        <ul class="socials" aria-label="Follow">
-          <li><a href="https://discord.gg/C9jzh9dquw"><svg aria-hidden="true"><use href="assets/icons.svg#discord"/></svg>Discord</a></li>
-          <li><a href="https://www.youtube.com/@venaonsteam"><svg aria-hidden="true"><use href="assets/icons.svg#youtube"/></svg>YouTube</a></li>
-          <li><a href="https://www.instagram.com/worldofvena"><svg aria-hidden="true"><use href="assets/icons.svg#instagram"/></svg>Instagram</a></li>
-          <li><a href="https://www.tiktok.com/@vena_on_steam"><svg aria-hidden="true"><use href="assets/icons.svg#tiktok"/></svg>TikTok</a></li>
-          <li><a href="https://x.com/venaonsteam"><svg aria-hidden="true"><use href="assets/icons.svg#x"/></svg>X</a></li>
-          <li><a href="https://bsky.app/profile/loertinggames.bsky.social"><svg aria-hidden="true"><use href="assets/icons.svg#bluesky"/></svg>Bluesky</a></li>
-        </ul>
+    <section class="about" aria-labelledby="about-title">
+      <div class="about__inner wrap">
+        <h2 id="about-title">About Loerting Games</h2>
+        <div class="about__text">
+          <p><strong>Loerting Games</strong> is the shared name under which Alexander and Leonhard Kohl-Lörting present their games. Each game is developed and published by one of the two alone: What the Buck?! by Alexander, Vena and Fish Don’t Return by Leonhard. Loerting Games itself is not a company or a publisher.</p>
+          <p>For press, review keys or anything else, <a href="press/#contact" data-mail>send an email</a>.</p>
+          <p>If you ask for a review key, please write from the email address listed on your site or channel, or include other proof that you run it.</p>
+          <ul class="socials" aria-label="Follow">
+            <li><a href="https://discord.gg/C9jzh9dquw"><svg aria-hidden="true"><use href="assets/icons.svg#discord"/></svg>Discord</a></li>
+            <li><a href="https://www.youtube.com/@venaonsteam"><svg aria-hidden="true"><use href="assets/icons.svg#youtube"/></svg>YouTube</a></li>
+            <li><a href="https://www.instagram.com/worldofvena"><svg aria-hidden="true"><use href="assets/icons.svg#instagram"/></svg>Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@vena_on_steam"><svg aria-hidden="true"><use href="assets/icons.svg#tiktok"/></svg>TikTok</a></li>
+            <li><a href="https://x.com/venaonsteam"><svg aria-hidden="true"><use href="assets/icons.svg#x"/></svg>X</a></li>
+            <li><a href="https://bsky.app/profile/loertinggames.bsky.social"><svg aria-hidden="true"><use href="assets/icons.svg#bluesky"/></svg>Bluesky</a></li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
