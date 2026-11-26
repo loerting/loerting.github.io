@@ -2,6 +2,7 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const saveData = navigator.connection?.saveData === true;
 const IN_VIEW = 0.6;
 const MAIL = ["moc.liamg", "lk80drahnoel"];
+const MAIL_WTB = ["moc.liamg", "60kcubehttahw"];
 const STRINGS = {
   en: { play: "Play clip", pause: "Pause clip", count: (i, n) => `${i} of ${n}`, showPlay: "Play the slideshow", showPause: "Pause the slideshow" },
   de: { play: "Clip abspielen", pause: "Clip anhalten", count: (i, n) => `${i} von ${n}`, showPlay: "Diashow abspielen", showPause: "Diashow anhalten" },
@@ -10,13 +11,17 @@ const TEXT = STRINGS[document.documentElement.lang] ?? STRINGS.en;
 
 const mayAutoplay = () => !reducedMotion.matches && !saveData;
 
+function mailAddress(element) {
+  const parts = element.dataset.mailFor === "wtb" ? MAIL_WTB : MAIL;
+  return parts.map((part) => [...part].reverse().join("")).reverse().join("@");
+}
+
 function setUpMail() {
-  const address = MAIL.map((part) => [...part].reverse().join("")).reverse().join("@");
   for (const link of document.querySelectorAll("a[data-mail]")) {
     const subject = link.dataset.mail ? `?subject=${encodeURIComponent(link.dataset.mail)}` : "";
-    link.href = `mailto:${address}${subject}`;
+    link.href = `mailto:${mailAddress(link)}${subject}`;
   }
-  for (const text of document.querySelectorAll("[data-mail-show]")) text.textContent = address;
+  for (const text of document.querySelectorAll("[data-mail-show]")) text.textContent = mailAddress(text);
 }
 
 function play(video) {
